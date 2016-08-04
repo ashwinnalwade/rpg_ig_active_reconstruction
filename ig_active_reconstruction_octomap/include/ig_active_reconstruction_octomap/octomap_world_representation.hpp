@@ -59,6 +59,15 @@ namespace octomap
   public:
     WorldRepresentation( typename TREE_TYPE::Config config = typename TREE_TYPE::Config() );
     
+    WorldRepresentation(const WorldRepresentation &other) {
+      octree_ =  boost::make_shared<TREE_TYPE>(*other.octree_);
+    }
+
+    WorldRepresentation& operator=(const WorldRepresentation& other) {
+      octree_ =  boost::make_shared<TREE_TYPE>(*other.octree_);
+      return *this;
+    }
+
     virtual ~WorldRepresentation();
     
     /*! (cpp11 version)Returns a shared pointer to an object on which a setLink() was called, with a link object linking to the world representation. 

@@ -62,6 +62,12 @@ namespace octomap
      */
     IgTree(Config config);
 
+    /*! Copy constructor
+      */
+    IgTree(const IgTree& other)
+    : ::octomap::OccupancyOcTreeBase<IgTreeNode>(other),
+    config_(other.config_) {}
+
     /*! virtual constructor: creates a new object of same type
      * (Covariant return type requires an up-to-date compiler)
      */

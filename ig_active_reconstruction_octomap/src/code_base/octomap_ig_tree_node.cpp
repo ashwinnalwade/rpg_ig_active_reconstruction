@@ -38,8 +38,19 @@ namespace octomap
 
   IgTreeNode::~IgTreeNode()
   {
+
+    if (children != NULL) {
+      for (unsigned int i=0; i<8; i++) {
+        if (children[i] != NULL) {
+          delete getChild(i);
+        }
+      }
+      delete[] children;
+      children = NULL;
+    }
+
   }
-  
+
   void IgTreeNode::expandNode()
   {
     assert(!hasChildren());
@@ -61,7 +72,7 @@ namespace octomap
 
     // delete children
     for (unsigned int i=0;i<8;i++) {
-      delete children[i];
+      delete getChild(i);
     }
     delete[] children;
     children = NULL;
@@ -94,7 +105,7 @@ namespace octomap
   {
     assert((i < 8) && (children != NULL));
     assert(children[i] != NULL);
-    delete children[i];
+    delete getChild(i);
     children[i] = NULL;
   }
 

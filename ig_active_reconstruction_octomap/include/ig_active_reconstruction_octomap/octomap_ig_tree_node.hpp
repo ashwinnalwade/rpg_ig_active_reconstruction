@@ -45,6 +45,21 @@ namespace octomap
     IgTreeNode();
     ~IgTreeNode();
     
+    IgTreeNode(const IgTreeNode& other)
+    : ::octomap::OcTreeNode(),
+    occ_dist_(other.occ_dist_),
+    max_dist_(other.max_dist_),
+    has_no_measurement_(other.has_no_measurement_) {
+        value = other.value;
+         if (other.hasChildren()){
+           allocChildren();
+           for (unsigned i = 0; i < 8; ++i){
+             if (other.getChild(i))
+               children[i] = new IgTreeNode(*(other.getChild(i)));
+           }
+         }
+    }
+
     void expandNode();
     bool pruneNode();
     
